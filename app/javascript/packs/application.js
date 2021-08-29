@@ -8,5 +8,10 @@ import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import "../stylesheets/application.scss";
 
+var componentRequireContext = require.context("src", true);
+var ReactRailsUJS = require("react_ujs");
+
+ReactRailsUJS.useContext(componentRequireContext);
+
 Rails.start();
 ActiveStorage.start();
