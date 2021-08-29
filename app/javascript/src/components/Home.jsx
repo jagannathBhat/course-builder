@@ -1,7 +1,9 @@
 import React from "react";
 
+import Accordion from "./Accordion";
+
 const Home = () => {
-  return <h1 className="text-center">Course Builder</h1>;
+  return <Accordion />;
 };
 
 export default Home;

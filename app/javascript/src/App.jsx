@@ -4,6 +4,7 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 import { initializeLogger } from "common/logger";
 import Home from "components/Home";
+import NavBar from "components/NavBar";
 
 const App = () => {
   // const [loading, setLoading] = useState(true);
@@ -15,6 +16,7 @@ const App = () => {
 
   return (
     <Router>
+      <NavBar />
       <Switch>
         <Route exact path="/" render={Home} />
       </Switch>
