@@ -14,6 +14,7 @@ const Accordion = () => {
   const [subsections, setSubsections] = useState([]);
 
   const fetchSections = async () => {
+    setLoading(true);
     try {
       const response = await sectionsApi.list();
       setSections(response.data.sections);
@@ -48,7 +49,7 @@ const Accordion = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center justify-between my-4">
         <h2 className="text-center text-2xl">Outline</h2>
         <button
           className="text-center text-gray-500 text-sm focus:underline"
@@ -62,6 +63,7 @@ const Accordion = () => {
           <Section
             key={section.id}
             editOutline={editOutline}
+            fetchSections={fetchSections}
             fetchSubsections={fetchSubsections}
             section={section}
             subsections={subsections.filter(
@@ -69,7 +71,9 @@ const Accordion = () => {
             )}
           />
         ))}
-      {editOutline && <AddSection fetchSections={fetchSections} />}
+      {(editOutline || sections.length === 0) && (
+        <AddSection fetchSections={fetchSections} />
+      )}
     </div>
   );
 };

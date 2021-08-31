@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
 class SectionsController < ApplicationController
-  before_action :load_section, only: :update
+  before_action :load_section, only: %i[destroy update]
 
   def create
     @section = Section.new(section_params)
     if @section.save
       render status: :ok, json: { notice: t("section.created") }
+    else
+      errors = @section.errors.full_messages.to_sentence
+      render status: :unprocessable_entity, json: { errors: errors }
+    end
+  end
+
+  def destroy
+    if @section.destroy
+      render status: :ok, json: { notice: t("section.deleted") }
     else
       errors = @section.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { errors: errors }

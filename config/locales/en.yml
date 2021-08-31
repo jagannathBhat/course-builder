@@ -32,7 +32,9 @@
 en:
   section:
     created: "Successfuly created section."
+    deleted: "Successfuly deleted section."
     updated: "Successfully updated section."
   subsection:
     created: "Successfuly created subsection."
+    deleted: "Successfuly deleted subsection."
     updated: "Successfully updated subsection."
