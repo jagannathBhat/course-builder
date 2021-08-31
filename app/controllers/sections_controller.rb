@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SectionsController < ApplicationController
+  before_action :load_section, only: :update
+
   def create
     @section = Section.new(section_params)
     if @section.save
@@ -14,9 +16,25 @@ class SectionsController < ApplicationController
   def index
     sections = Section.all
     render status: :ok, json: { sections: sections }
+  end
+
+  def update
+    if @section.update(section_params)
+      render status: :ok, json: { notice: t("section.updated") }
+    else
+      render status: :unprocessable_entity, json: { errors: @section.errors.full_messages.to_sentence }
+    end
+  end
+
+  private
+
+    def load_section
+      @section = Section.find_by_id!(params[:id])
+    rescue ActiveRecord::RecordNotFound => errors
+      render json: { errors: errors }
     end
 
-  def section_params
-    params.require(:section).permit(:name)
-  end
+    def section_params
+      params.require(:section).permit(:name)
+    end
 end

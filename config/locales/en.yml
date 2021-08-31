@@ -31,6 +31,8 @@
 
 en:
   section:
-    created: "Section created successfuly"
+    created: "Successfuly created section."
+    updated: "Successfully updated section."
   subsection:
-    created: "Subsection created successfuly"
+    created: "Successfuly created subsection."
+    updated: "Successfully updated subsection."
