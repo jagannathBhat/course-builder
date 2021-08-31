@@ -4,12 +4,23 @@ import PropTypes from "prop-types";
 
 import AddSubsection from "./AddSubsection";
 
+import subsectionsApi from "../../apis/subsections";
+
 const Subsection = ({
   editOutline,
   fetchSubsections,
   sectionId,
   subsection: { id, name }
 }) => {
+  const deleteSubsection = async () => {
+    try {
+      await subsectionsApi.destroy(id);
+      await fetchSubsections();
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   return (
     <div className="flex items-center justify-between pl-8 pr-2 py-2 hover:bg-gray-300">
       {editOutline ? (
@@ -22,7 +33,13 @@ const Subsection = ({
       ) : (
         <h4>{name}</h4>
       )}
-      <div>{editOutline && <i className="ri-delete-bin-7-line p-1"></i>}</div>
+      <div>
+        {editOutline && (
+          <button className="p-1 pl-2" onClick={deleteSubsection}>
+            <i className="ri-delete-bin-7-line"></i>
+          </button>
+        )}
+      </div>
     </div>
   );
 };
