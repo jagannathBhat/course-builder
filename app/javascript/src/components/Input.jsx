@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import PropTypes from "prop-types";
 
@@ -13,15 +13,23 @@ const Input = ({
   onChange,
   onSubmit
 }) => {
+  const [showButton, setShowButton] = useState(false);
+
   return (
-    <form className="mt-6" onSubmit={onSubmit}>
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        setShowButton(false);
+        onSubmit(e);
+      }}
+    >
       {label && (
         <label className="block font-medium leading-5 text-bb-gray-700 text-sm">
           {label}
         </label>
       )}
       <div
-        className="border border-gray-300 flex rounded-md mt-1 shadow-sm
+        className="border border-gray-300 flex rounded-md shadow-sm
         focus:shadow-outline-blue focus:border-blue-300 "
       >
         <input
@@ -32,9 +40,12 @@ const Input = ({
           required={required}
           type={type}
           value={value}
-          onChange={onChange}
+          onChange={e => {
+            setShowButton(e.target.value !== "");
+            onChange(e);
+          }}
         />
-        {iconClass && (
+        {iconClass && showButton && (
           <button className="px-3 py-2" disabled={disabled} type="submit">
             <i className={iconClass}></i>
           </button>
