@@ -2,7 +2,7 @@
 
 class AddForeignKeys < ActiveRecord::Migration[6.1]
   def change
-    add_reference :sections, :subsections, foreign_key: true
-    add_reference :subsections, :steps, foreign_key: true
+    add_reference :subsections, :section, foreign_key: { on_delete: :cascade }, index: false
+    add_reference :steps, :subsection, foreign_key: { on_delete: :cascade }, index: false
   end
 end
