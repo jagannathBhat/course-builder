@@ -1,9 +1,9 @@
 import React from "react";
 
-import Accordion from "./Accordion";
+import Outline from "./Outline";
 
 const Home = () => {
-  return <Accordion />;
+  return <Outline />;
 };
 
 export default Home;
