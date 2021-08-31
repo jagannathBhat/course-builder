@@ -18,14 +18,13 @@ ActiveRecord::Schema.define(version: 2021_08_29_031452) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "subsections_id"
-    t.index ["subsections_id"], name: "index_sections_on_subsections_id"
   end
 
   create_table "steps", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "subsection_id"
   end
 
   create_table "subsections", force: :cascade do |t|
@@ -33,10 +32,9 @@ ActiveRecord::Schema.define(version: 2021_08_29_031452) do
     t.text "script"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "steps_id"
-    t.index ["steps_id"], name: "index_subsections_on_steps_id"
+    t.integer "section_id"
   end
 
-  add_foreign_key "sections", "subsections", column: "subsections_id"
-  add_foreign_key "subsections", "steps", column: "steps_id"
+  add_foreign_key "steps", "subsections", on_delete: :cascade
+  add_foreign_key "subsections", "sections", on_delete: :cascade
 end

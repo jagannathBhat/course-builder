@@ -1,7 +1,9 @@
 import React from "react";
 
+import Outline from "./Outline";
+
 const Home = () => {
-  return <h1 className="text-center">Course Builder</h1>;
+  return <Outline />;
 };
 
 export default Home;
