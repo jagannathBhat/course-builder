@@ -2,11 +2,11 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
+import sectionsApi from "apis/sections";
+
 import AddSection from "./AddSection";
 import AddSubsection from "./AddSubsection";
 import Subsection from "./Subsection";
-
-import sectionsApi from "../../apis/sections";
 
 const Section = ({
   editOutline,
@@ -42,24 +42,19 @@ const Section = ({
           </button>
         )}
       </div>
-      {subsections.length > 0 && (
-        <div className="my-4">
-          {subsections.map(subsection => (
+      {subsections.length > 0 &&
+        subsections.map(subsection => (
+          <div className="mt-4" key={subsection.id}>
             <Subsection
-              key={subsection.id}
               editOutline={editOutline}
               fetchSubsections={fetchSubsections}
               subsection={subsection}
             />
-          ))}
-          {editOutline && (
-            <div className="py-2">
-              <AddSubsection
-                fetchSubsections={fetchSubsections}
-                sectionId={id}
-              />
-            </div>
-          )}
+          </div>
+        ))}
+      {editOutline && (
+        <div className=" mt-4 py-2">
+          <AddSubsection fetchSubsections={fetchSubsections} sectionId={id} />
         </div>
       )}
     </div>

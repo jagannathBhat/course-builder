@@ -2,9 +2,9 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
-import AddSubsection from "./AddSubsection";
+import subsectionsApi from "apis/subsections";
 
-import subsectionsApi from "../../apis/subsections";
+import AddSubsection from "./AddSubsection";
 
 const Subsection = ({
   editOutline,
