@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
 
-import sectionsApi from "apis/sections";
+import stepsApi from "apis/steps";
 import subsectionsApi from "apis/subsections";
 import PageLoader from "components/PageLoader";
 
-import AddSection from "./AddSection";
-import Section from "./Section";
+import Subsection from "./Subsection";
 
-const Accordion = () => {
+const Steps = () => {
   const [editOutline, setEditOutline] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [sections, setSections] = useState([]);
   const [subsections, setSubsections] = useState([]);
+  const [steps, setSteps] = useState([]);
 
-  const fetchSections = async () => {
+  const fetchSubsections = async () => {
     setLoading(true);
     try {
-      const response = await sectionsApi.list();
-      setSections(response.data.sections);
-      await fetchSubsections();
+      const response = await subsectionsApi.list();
+      setSubsections(response.data.subsections);
+      await fetchSteps();
       setLoading(false);
     } catch (error) {
       logger.error(error);
@@ -26,17 +25,17 @@ const Accordion = () => {
     }
   };
 
-  const fetchSubsections = async () => {
+  const fetchSteps = async () => {
     try {
-      const response = await subsectionsApi.list();
-      setSubsections(response.data.subsections);
+      const response = await stepsApi.list();
+      setSteps(response.data.steps);
     } catch (error) {
       logger.error(error);
     }
   };
 
   useEffect(() => {
-    fetchSections();
+    fetchSubsections();
   }, []);
 
   if (loading) {
@@ -50,7 +49,7 @@ const Accordion = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between my-4">
-        <h2 className="text-center text-2xl">Outline</h2>
+        <h2 className="text-center text-2xl">Storyboard</h2>
         <button
           className="text-center text-gray-500 text-sm focus:underline"
           onClick={() => setEditOutline(!editOutline)}
@@ -58,27 +57,23 @@ const Accordion = () => {
           {editOutline ? "Done" : "Edit"}
         </button>
       </div>
-      {sections &&
-        sections.map(section => (
-          <Section
-            key={section.id}
+      {subsections &&
+        subsections.map(subsection => (
+          <Subsection
+            key={subsection.id}
             editOutline={editOutline}
-            fetchSections={fetchSections}
-            fetchSubsections={fetchSubsections}
-            section={section}
-            subsections={subsections.filter(
-              subsection => subsection.section_id === section.id
-            )}
+            fetchSteps={fetchSteps}
+            subsection={subsection}
+            steps={steps.filter(steps => steps.subsection_id === subsection.id)}
           />
         ))}
-      {editOutline && <AddSection fetchSections={fetchSections} />}
-      {sections.length === 0 && !editOutline && (
+      {subsections.length === 0 && (
         <p className="text-center text-gray-500">
-          Click on edit to add a new section
+          Add subsections in Outline to start
         </p>
       )}
     </div>
   );
 };
 
-export default Accordion;
+export default Steps;

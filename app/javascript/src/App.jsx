@@ -6,6 +6,7 @@ import { setAuthHeaders } from "apis/axios";
 import { initializeLogger } from "common/logger";
 import Home from "components/Home";
 import NavBar from "components/NavBar";
+import Storyboard from "components/Storyboard";
 
 const App = () => {
   // const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ const App = () => {
       <NavBar />
       <Switch>
         <Route exact path="/" render={Home} />
+        <Route exact path="/storyboard" render={Storyboard} />
       </Switch>
     </Router>
   );

@@ -10,8 +10,13 @@ const NavBar = () => {
           <div className="px-2 lg:px-0">
             <h1 className="text-lg">Course Builder</h1>
           </div>
-          <div className="px-2 lg:px-0">
-            <NavItem name="Storyboard" path="/" />
+          <div className="flex">
+            <div className="px-2 lg:px-0">
+              <NavItem name="Outline" path="/" />
+            </div>
+            <div className="px-2 lg:px-0">
+              <NavItem name="Storyboard" path="/storyboard" />
+            </div>
           </div>
         </div>
       </div>

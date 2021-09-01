@@ -34,6 +34,10 @@ en:
     created: "Successfuly created section."
     deleted: "Successfuly deleted section."
     updated: "Successfully updated section."
+  step:
+    created: "Successfuly created step."
+    deleted: "Successfuly deleted step."
+    updated: "Successfully updated step."
   subsection:
     created: "Successfuly created subsection."
     deleted: "Successfuly deleted subsection."
