@@ -71,8 +71,11 @@ const Accordion = () => {
             )}
           />
         ))}
-      {(editOutline || sections.length === 0) && (
-        <AddSection fetchSections={fetchSections} />
+      {editOutline && <AddSection fetchSections={fetchSections} />}
+      {sections.length === 0 && !editOutline && (
+        <p className="text-center text-gray-500">
+          Click on edit to add a new section
+        </p>
       )}
     </div>
   );

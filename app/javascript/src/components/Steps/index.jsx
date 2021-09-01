@@ -67,6 +67,11 @@ const Steps = () => {
             steps={steps.filter(steps => steps.subsection_id === subsection.id)}
           />
         ))}
+      {subsections.length === 0 && (
+        <p className="text-center text-gray-500">
+          Add subsections in Outline to start
+        </p>
+      )}
     </div>
   );
 };
