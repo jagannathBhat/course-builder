@@ -44,6 +44,6 @@ class SubsectionsController < ApplicationController
     end
 
     def subsection_params
-      params.require(:subsection).permit(:name, :section_id)
+      params.require(:subsection).permit(:name, :section_id, :script)
     end
 end

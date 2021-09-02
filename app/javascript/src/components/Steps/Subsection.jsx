@@ -8,12 +8,18 @@ import Step from "./Step";
 const Subsection = ({
   editOutline,
   fetchSteps,
+  scriptOpen,
   steps,
-  subsection: { id, name }
+  subsection: { id, name, script }
 }) => {
   return (
     <div className="bg-white my-4 p-4 shadow">
-      <h3>{name}</h3>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl">{name}</h3>
+        <button onClick={() => scriptOpen(id, script ? script : "")}>
+          <i className="ri-sticky-note-line"></i>
+        </button>
+      </div>
       {steps.length > 0 &&
         steps.map(step => (
           <div className="mt-4" key={step.id}>
@@ -36,6 +42,7 @@ const Subsection = ({
 Subsection.propTypes = {
   editOutline: PropTypes.bool,
   fetchSteps: PropTypes.func,
+  scriptOpen: PropTypes.func,
   steps: PropTypes.array,
   subsection: PropTypes.object
 };

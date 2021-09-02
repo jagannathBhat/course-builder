@@ -49,29 +49,23 @@ const AddStep = ({ fetchSteps, step = { content: "" }, subsectionId }) => {
     }
   };
 
-  const InputUpdate = () => {
-    return (
-      <div className="flex">
-        <div className="flex-auto">
-          <Input
-            disabled={loading}
-            iconClass="ri-check-line"
-            value={content}
-            onChange={e => setContent(e.target.value)}
-            onSubmit={() => stepUpdate()}
-          />
-        </div>
-        <button className="pl-2" onClick={stepDelete}>
-          <i className="ri-delete-bin-7-line"></i>
-        </button>
-      </div>
-    );
-  };
-
   return (
     <div className="flex-auto">
       {step.id ? (
-        <InputUpdate />
+        <div className="flex">
+          <div className="flex-auto">
+            <Input
+              disabled={loading}
+              iconClass="ri-check-line"
+              value={content}
+              onChange={e => setContent(e.target.value)}
+              onSubmit={() => stepUpdate()}
+            />
+          </div>
+          <button className="pl-2" onClick={stepDelete}>
+            <i className="ri-delete-bin-7-line"></i>
+          </button>
+        </div>
       ) : (
         <InputAdd loading={loading} stepAdd={stepAdd} setContent={setContent} />
       )}

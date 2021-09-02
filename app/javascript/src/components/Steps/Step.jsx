@@ -15,7 +15,7 @@ const Step = ({ editOutline, fetchSteps, step, subsectionId }) => {
         />
       );
     }
-    return <div className="flex-1">{step.content}</div>;
+    return <div className="flex-1 text-gray-700">{step.content}</div>;
   };
 
   return (
