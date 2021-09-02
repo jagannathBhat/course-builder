@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 
 const Modal = ({ children, closeModal }) => {
   return (
-    <div className="bg-nitro-gray-800-aa fixed flex h-full items-center justify-center left-0 top-0 w-full">
+    <div
+      className="bg-nitro-gray-800-aa fixed flex h-full items-center justify-center left-0 top-0 w-full"
+      id="modal"
+      onClick={e => {
+        if (e.target === document.getElementById("modal")) closeModal();
+      }}
+    >
       {children}
-      <button
-        className="fixed m-4 right-0 text-gray-300 text-xl top-0"
-        onClick={closeModal}
-      >
-        <i className="ri-close-circle-fill"></i>
-      </button>
     </div>
   );
 };
