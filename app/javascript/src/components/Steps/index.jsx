@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import stepsApi from "apis/steps";
 import subsectionsApi from "apis/subsections";
@@ -8,6 +8,8 @@ import Script from "./Script";
 import Subsection from "./Subsection";
 
 const Steps = () => {
+  const timer = useRef(null);
+  const [saveMessage, setSaveMessage] = useState("");
   const [showScript, setShowScript] = useState(false);
   const [scriptSubsection, setScriptSubsection] = useState(null);
   const [scriptText, setScriptText] = useState("");
@@ -38,10 +40,18 @@ const Steps = () => {
     }
   };
 
-  const scriptClose = () => {
-    setScriptSubsection(null);
-    setScriptText("");
-    setShowScript(false);
+  const scriptClose = async changesMade => {
+    setLoading(true);
+    try {
+      if (changesMade) await fetchSubsections();
+      setScriptSubsection(null);
+      setScriptText("");
+      setShowScript(false);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      logger.error(error);
+    }
   };
 
   const scriptOpen = async (id, text) => {
@@ -51,19 +61,24 @@ const Steps = () => {
   };
 
   const scriptUpdate = async () => {
-    setLoading(true);
     try {
       await subsectionsApi.update({
         id: scriptSubsection,
         payload: { subsection: { script: scriptText } }
       });
-      setLoading(false);
-      fetchSubsections();
     } catch (error) {
       logger.error(error);
-      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (timer.current) clearTimeout(timer.current);
+    if (saveMessage !== "")
+      timer.current = setTimeout(async () => {
+        await scriptUpdate();
+        setSaveMessage("All changes saved.");
+      }, 2000);
+  }, [scriptText]);
 
   useEffect(() => {
     fetchSubsections();
@@ -110,8 +125,12 @@ const Steps = () => {
       </div>
       {showScript && (
         <Script
-          action={scriptUpdate}
+          action={e => {
+            setSaveMessage("Saving...");
+            setScriptText(e.target.value);
+          }}
           closeScript={scriptClose}
+          saveMessage={saveMessage}
           scriptText={scriptText}
           setScriptText={setScriptText}
         />
