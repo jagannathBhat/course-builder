@@ -6,7 +6,7 @@ class SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
     if @section.save
-      render status: :ok, json: { notice: t("section.created") }
+      render status: :ok, json: { notice: t("successfuly_created", entity: "section") }
     else
       errors = @section.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { errors: errors }
@@ -15,7 +15,7 @@ class SectionsController < ApplicationController
 
   def destroy
     if @section.destroy
-      render status: :ok, json: { notice: t("section.deleted") }
+      render status: :ok, json: { notice: t("successfuly_deleted", entity: "section") }
     else
       errors = @section.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { errors: errors }
@@ -29,7 +29,7 @@ class SectionsController < ApplicationController
 
   def update
     if @section.update(section_params)
-      render status: :ok, json: { notice: t("section.updated") }
+      render status: :ok, json: { notice: t("successfuly_updated", entity: "section") }
     else
       render status: :unprocessable_entity, json: { errors: @section.errors.full_messages.to_sentence }
     end

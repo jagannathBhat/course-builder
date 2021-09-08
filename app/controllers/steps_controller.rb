@@ -6,7 +6,7 @@ class StepsController < ApplicationController
   def create
     @step = Step.new(step_params)
     if @step.save
-      render status: :ok, json: { notice: t("step.created") }
+      render status: :ok, json: { notice: t("successfuly_created", entity: "step") }
     else
       errors = @step.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { errors: errors }
@@ -15,7 +15,7 @@ class StepsController < ApplicationController
 
   def destroy
     if @step.destroy
-      render status: :ok, json: { notice: t("step.deleted") }
+      render status: :ok, json: { notice: t("successfuly_deleted", entity: "step") }
     else
       errors = @step.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { errors: errors }
@@ -29,7 +29,7 @@ class StepsController < ApplicationController
 
   def update
     if @step.update(step_params)
-      render status: :ok, json: { notice: t("step.updated") }
+      render status: :ok, json: { notice: t("successfuly_updated", entity: "step") }
     else
       render status: :unprocessable_entity, json: { errors: @step.errors.full_messages.to_sentence }
     end

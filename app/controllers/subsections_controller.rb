@@ -6,7 +6,7 @@ class SubsectionsController < ApplicationController
   def create
     @subsection = Subsection.new(subsection_params)
     if @subsection.save
-      render status: :ok, json: { notice: t("subsection.created") }
+      render status: :ok, json: { notice: t("successfuly_created", entity: "subsection") }
     else
       errors = @subsection.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { errors: errors }
@@ -15,7 +15,7 @@ class SubsectionsController < ApplicationController
 
   def destroy
     if @subsection.destroy
-      render status: :ok, json: { notice: t("subsection.deleted") }
+      render status: :ok, json: { notice: t("successfuly_deleted", entity: "subsection") }
     else
       errors = @subsection.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { errors: errors }
@@ -29,7 +29,7 @@ class SubsectionsController < ApplicationController
 
   def update
     if @subsection.update(subsection_params)
-      render status: :ok, json: { notice: t("subsection.updated") }
+      render status: :ok, json: { notice: t("successfuly_updated", entity: "subsection") }
     else
       render status: :unprocessable_entity, json: { errors: @subsection.errors.full_messages.to_sentence }
     end

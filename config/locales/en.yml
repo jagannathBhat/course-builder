@@ -30,15 +30,6 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  section:
-    created: "Successfuly created section."
-    deleted: "Successfuly deleted section."
-    updated: "Successfully updated section."
-  step:
-    created: "Successfuly created step."
-    deleted: "Successfuly deleted step."
-    updated: "Successfully updated step."
-  subsection:
-    created: "Successfuly created subsection."
-    deleted: "Successfuly deleted subsection."
-    updated: "Successfully updated subsection."
+  successfuly_created: "Successfuly created %{entity}."
+  successfuly_deleted: "Successfuly deleted %{entity}."
+  successfuly_updated: "Successfully updated %{entity}."
