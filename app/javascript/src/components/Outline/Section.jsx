@@ -12,6 +12,7 @@ const Section = ({
   editOutline,
   fetchSections,
   fetchSubsections,
+  index,
   section: { id, name },
   subsections
 }) => {
@@ -34,7 +35,7 @@ const Section = ({
             sectionName={name}
           />
         ) : (
-          <h3>{name}</h3>
+          <h3>{`${index + 1}. ${name}`}</h3>
         )}
         {editOutline && (
           <button className="p-1 pl-2" onClick={deleteSection}>
@@ -43,11 +44,13 @@ const Section = ({
         )}
       </div>
       {subsections.length > 0 &&
-        subsections.map(subsection => (
+        subsections.map((subsection, subsectionIndex) => (
           <div className="mt-4" key={subsection.id}>
             <Subsection
               editOutline={editOutline}
               fetchSubsections={fetchSubsections}
+              index={subsectionIndex}
+              sectionIndex={index}
               subsection={subsection}
             />
           </div>
@@ -65,6 +68,7 @@ Section.propTypes = {
   editOutline: PropTypes.bool,
   fetchSections: PropTypes.func,
   fetchSubsections: PropTypes.func,
+  index: PropTypes.number,
   section: PropTypes.object,
   subsections: PropTypes.array
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import sectionsApi from "apis/sections";
 import stepsApi from "apis/steps";
 import subsectionsApi from "apis/subsections";
 import PageLoader from "components/PageLoader";
@@ -15,8 +16,22 @@ const Steps = () => {
   const [scriptText, setScriptText] = useState("");
   const [editOutline, setEditOutline] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [subsections, setSubsections] = useState([]);
+  const [sections, setSections] = useState([]);
   const [steps, setSteps] = useState([]);
+  const [subsections, setSubsections] = useState([]);
+
+  const fetchSections = async () => {
+    setLoading(true);
+    try {
+      const response = await sectionsApi.list();
+      setSections(response.data.sections);
+      await fetchSubsections();
+      setLoading(false);
+    } catch (error) {
+      logger.error(error);
+      setLoading(false);
+    }
+  };
 
   const fetchSubsections = async () => {
     setLoading(true);
@@ -81,6 +96,7 @@ const Steps = () => {
   }, [scriptText]);
 
   useEffect(() => {
+    fetchSections();
     fetchSubsections();
   }, []);
 
@@ -104,19 +120,25 @@ const Steps = () => {
             {editOutline ? "Done" : "Edit"}
           </button>
         </div>
-        {subsections &&
-          subsections.map(subsection => (
-            <Subsection
-              key={subsection.id}
-              editOutline={editOutline}
-              fetchSteps={fetchSteps}
-              scriptOpen={scriptOpen}
-              subsection={subsection}
-              steps={steps.filter(
-                steps => steps.subsection_id === subsection.id
-              )}
-            />
-          ))}
+        {sections &&
+          subsections &&
+          sections.map(section =>
+            subsections
+              .filter(subsection => subsection.section_id === section.id)
+              .map(subsection => (
+                <Subsection
+                  key={subsection.id}
+                  editOutline={editOutline}
+                  fetchSteps={fetchSteps}
+                  scriptOpen={scriptOpen}
+                  sectionName={section.name}
+                  steps={steps.filter(
+                    step => step.subsection_id === subsection.id
+                  )}
+                  subsection={subsection}
+                />
+              ))
+          )}
         {subsections.length === 0 && (
           <p className="text-center text-gray-500">
             Add subsections in Outline to start

@@ -9,13 +9,17 @@ const Subsection = ({
   editOutline,
   fetchSteps,
   scriptOpen,
+  sectionName,
   steps,
   subsection: { id, name, script }
 }) => {
   return (
     <div className="bg-white my-4 p-4 shadow">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl">{name}</h3>
+        <h3 className="text-xl">
+          {name + " "}
+          <small className="text-sm text-gray-600">{sectionName}</small>
+        </h3>
         <button onClick={() => scriptOpen(id, script ? script : "")}>
           <i className="ri-sticky-note-line"></i>
         </button>
@@ -43,6 +47,7 @@ Subsection.propTypes = {
   editOutline: PropTypes.bool,
   fetchSteps: PropTypes.func,
   scriptOpen: PropTypes.func,
+  sectionName: PropTypes.string,
   steps: PropTypes.array,
   subsection: PropTypes.object
 };

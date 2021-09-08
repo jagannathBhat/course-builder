@@ -48,7 +48,7 @@ const Accordion = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto mb-4">
       <div className="flex items-center justify-between my-4">
         <h2 className="text-center text-2xl">Outline</h2>
         <button
@@ -59,12 +59,13 @@ const Accordion = () => {
         </button>
       </div>
       {sections &&
-        sections.map(section => (
+        sections.map((section, index) => (
           <Section
             key={section.id}
             editOutline={editOutline}
             fetchSections={fetchSections}
             fetchSubsections={fetchSubsections}
+            index={index}
             section={section}
             subsections={subsections.filter(
               subsection => subsection.section_id === section.id

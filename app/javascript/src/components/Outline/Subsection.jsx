@@ -9,7 +9,9 @@ import AddSubsection from "./AddSubsection";
 const Subsection = ({
   editOutline,
   fetchSubsections,
+  index,
   sectionId,
+  sectionIndex,
   subsection: { id, name }
 }) => {
   const deleteSubsection = async () => {
@@ -31,7 +33,7 @@ const Subsection = ({
           subsectionName={name}
         />
       ) : (
-        <h4>{name}</h4>
+        <h4>{`${sectionIndex + 1}.${index + 1}. ${name}`}</h4>
       )}
       <div>
         {editOutline && (
@@ -47,7 +49,9 @@ const Subsection = ({
 Subsection.propTypes = {
   editOutline: PropTypes.bool,
   fetchSubsections: PropTypes.func,
+  index: PropTypes.number,
   sectionId: PropTypes.number,
+  sectionIndex: PropTypes.number,
   subsection: PropTypes.object
 };
 
