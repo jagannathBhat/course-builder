@@ -63,4 +63,11 @@ class StepsControllerTest < ActionDispatch::IntegrationTest
     response_json = response.parsed_body
     assert_equal response_json["notice"], t("successfuly_deleted", entity: "step")
   end
+
+  def test_shouldnt_delete_invalid_step
+    delete step_path(@step.id + 1000)
+    assert_response :success
+    response_json = response.parsed_body
+    assert_equal response_json["errors"], "Couldn't find Step"
+  end
 end

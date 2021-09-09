@@ -62,4 +62,11 @@ class SubsectionsControllerTest < ActionDispatch::IntegrationTest
     response_json = response.parsed_body
     assert_equal response_json["notice"], t("successfuly_deleted", entity: "subsection")
   end
+
+  def test_shouldnt_delete_invalid_subsection
+    delete subsection_path(@subsection.id + 1000)
+    assert_response :success
+    response_json = response.parsed_body
+    assert_equal response_json["errors"], "Couldn't find Subsection"
+  end
 end
